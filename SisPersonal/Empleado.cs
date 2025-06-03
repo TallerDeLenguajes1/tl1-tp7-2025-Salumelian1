@@ -1,23 +1,24 @@
 using System;
 namespace EspacioEmpleado
 {
+    public enum Cargos
+    {
+        Auxiliar,
+        Administracion,
+        Ingeniero,
+        Especialista,
+        Investigador
+    }
     public class Empleado
     {
-        private string? nombre;
-        private string? apellido;
-        private DateTime fecha_de_nacimiento;
-        private char estadoCivil;
-        private DateTime fechaIngresoALaEmpresa;
-        private double sueldoBase;
-        enum Cargos
-        {
-            Auxiliar,
-            Administracion,
-            Ingeniero,
-            Especialista,
-            Investigador
-        }
-        private Cargos cargo;
+        public string? nombre;
+        public string? apellido;
+        public DateTime fecha_de_nacimiento;
+        public char estadoCivil;
+        public DateTime fechaIngresoALaEmpresa;
+        public double sueldoBase;
+        
+        public Cargos cargo;
 
         public int Edad()
         {
