@@ -1,65 +1,44 @@
-using System;
 namespace EspacioEmpleado
 {
-    public enum Cargos
-    {
-        Auxiliar,
-        Administracion,
-        Ingeniero,
-        Especialista,
-        Investigador
-    }
+
     public class Empleado
     {
         public string? nombre;
-        public string? apellido;
-        public DateTime fecha_de_nacimiento;
+        public string? Apellido;
+        public DateTime fechaDeNacimiento;
         public char estadoCivil;
-        public DateTime fechaIngresoALaEmpresa;
+        public DateTime FechaDeIngreso;
         public double sueldoBase;
-        
-        public Cargos cargo;
-
+        public Cargos Cargo;
+        public double Antiguedad()
+        {
+            DateTime hoy = DateTime.Now;
+            return (hoy.Subtract(FechaDeIngreso).Days / 30);
+        }
         public int Edad()
         {
             DateTime hoy = DateTime.Now;
-            return (hoy.Subtract(fecha_de_nacimiento).Days / 365); // obtengo los años  
-        }
-        public int antiguedad()
-        {
-            DateTime hoy = DateTime.Now;
-            return (hoy.Subtract(fechaIngresoALaEmpresa).Days / 30);
+            return (hoy.Subtract(fechaDeNacimiento).Days / 365);
         }
         public int Jubilacion()
         {
-            DateTime hoy = DateTime.Now;
-            int edad = Edad();
-            if (edad >= 65)
-            {
-                return 0;
-            }
-            else
-            {
-                return (65 - edad);
-            }
+            return (65 - Edad());
         }
         public double salario()
         {
-            int Antiguedad = antiguedad();
-            double adicional;
-
-            if (Antiguedad <= 20)
+            double adicional = 0;
+            float porcentaje = 0.001F;
+            if (Antiguedad() <= 20)
             {
-                adicional = sueldoBase * (Antiguedad * 0.01);
+                adicional = sueldoBase * (porcentaje * Antiguedad());
             }
             else
             {
                 adicional = sueldoBase * 0.25;
             }
-
-            if (cargo == Cargos.Ingeniero || cargo == Cargos.Especialista)
+            if (Cargo == Cargos.Ingeniero || Cargo == Cargos.Especialista)
             {
-                adicional += sueldoBase * 0.5;
+                adicional += sueldoBase * 0.50; 
             }
             if (estadoCivil == 'C')
             {
@@ -67,6 +46,14 @@ namespace EspacioEmpleado
             }
             return sueldoBase + adicional;
         }
+    }
+    public enum Cargos
+    {
+        Auxiliar,
+        Administrador,
+        Ingeniero,
+        Especialista,
+        Investigador
     }
 
 

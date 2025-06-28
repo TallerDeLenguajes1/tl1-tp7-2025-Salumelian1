@@ -1,74 +1,66 @@
 ﻿using System;
 using EspacioEmpleado;
 
-
-class Program
+partial class Program
 {
     static void Main()
     {
-        Empleado Euno  = new Empleado();
-        Empleado Edos = new Empleado();
-        Empleado Etres = new Empleado();
-        Euno.nombre = "Salustiano";
-        Euno.apellido = "Melian";
-        Euno.fecha_de_nacimiento = new DateTime(2003, 7, 20);
-        Euno.estadoCivil = 'S';
-        Euno.fechaIngresoALaEmpresa = new DateTime(2024, 6, 26);
-        Euno.sueldoBase = 10000;
-        Euno.cargo = Cargos.Ingeniero;
-
-        Edos.nombre = "Juan Pablo";
-        Edos.apellido = "Saa";
-        Edos.fecha_de_nacimiento = new DateTime(2003, 7, 29);
-        Edos.estadoCivil = 'C';
-        Edos.fechaIngresoALaEmpresa = new DateTime(2025, 5, 25);
-        Edos.sueldoBase = 1500;
-        Edos.cargo = Cargos.Especialista;
-
-        Etres.nombre = "Matias";
-        Etres.apellido = "Marengo";
-        Etres.fecha_de_nacimiento = new DateTime(2004, 6, 17);
-        Etres.estadoCivil = 'C';
-        Etres. fechaIngresoALaEmpresa = new DateTime(2020, 5, 25);
-        Etres.sueldoBase = 2000;
-        Etres.cargo = Cargos.Administracion;
-
-
-        Console.WriteLine("--------------------------------------------------");
-        double SueldoTotal = Euno.salario() + Edos.salario() + Etres.salario();
-        Console.WriteLine("El monto total en salarios es de:$" + SueldoTotal);
-
-        if (Euno.Jubilacion() < Edos.Jubilacion() && Euno.Jubilacion() < Etres.Jubilacion())
+        Empleado[] empleado = new Empleado[3];
+        empleado[0] = new Empleado
         {
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Datos del empleado más proximo a jubilarse:");
-            Console.WriteLine($"Empleado: {Euno.nombre} {Euno.apellido}");
-            Console.WriteLine($"Edad: {Euno.Edad} años");
-            Console.WriteLine($"Antigüedad: {Euno.antiguedad()} años");
-            Console.WriteLine($"Años para jubilarse: {Euno.Jubilacion()}");
-            Console.WriteLine($"Salario total: ${Euno.salario()}");
-        }
+            nombre = "Ana",
+            Apellido = "Pérez",
+            fechaDeNacimiento = new DateTime(1985, 3, 12),
+            estadoCivil = 'C',
+            FechaDeIngreso = new DateTime(2010, 5, 10),
+            sueldoBase = 250000,
+            Cargo = Cargos.Ingeniero
+        };
 
-        if (Edos.Jubilacion() < Euno.Jubilacion() && Edos.Jubilacion() <Etres.Jubilacion())
+        empleado[1] = new Empleado
         {
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Datos del empleado más proximo a jubilarse:");
-            Console.WriteLine($"Empleado: {Edos.nombre} {Edos.apellido}");
-            Console.WriteLine($"Edad: {Edos.Edad} años");
-            Console.WriteLine($"Antigüedad: {Edos.antiguedad()} años");
-            Console.WriteLine($"Años para jubilarse: {Edos.Jubilacion()}");
-            Console.WriteLine($"Salario total: ${Edos.salario()}");
-        }
+            nombre = "Carlos",
+            Apellido = "López",
+            fechaDeNacimiento = new DateTime(1990, 8, 20),
+            estadoCivil = 'S',
+            FechaDeIngreso = new DateTime(2022, 9, 1),
+            sueldoBase = 180000,
+            Cargo = Cargos.Auxiliar
+        };
 
-        if (Etres.Jubilacion() < Edos.Jubilacion() && Etres.Jubilacion() < Euno.Jubilacion())
+        empleado[2] = new Empleado
         {
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Datos del empleado más proximo a jubilarse:");
-            Console.WriteLine($"Empleado: {Etres.nombre} {Etres.apellido}");
-            Console.WriteLine($"Edad: {Etres.Edad} años");
-            Console.WriteLine($"Antigüedad: {Etres.antiguedad()} años");
-            Console.WriteLine($"Años para jubilarse: {Etres.Jubilacion()}");
-            Console.WriteLine($"Salario total: ${Etres.salario()}");
+            nombre = "María",
+            Apellido = "Sosa",
+            fechaDeNacimiento = new DateTime(1978, 12, 5),
+            estadoCivil = 'C',
+            FechaDeIngreso = new DateTime(2000, 1, 15),
+            sueldoBase = 300000,
+            Cargo = Cargos.Especialista
+        };
+
+        double GastoSalarios = 0;
+        for (int i = 0; i <= 2; i++)
+        {
+            GastoSalarios += empleado[i].salario();
         }
+        Console.WriteLine("El gasto final de los salarios para los empleados es: " + GastoSalarios);
+
+        int Vejes = 0, numDeEmpleado = 0;
+        for (int i = 0; i <= 2; i++)
+        {
+            if (empleado[i].Edad() >= Vejes)
+            {
+                Vejes = empleado[i].Edad();
+                numDeEmpleado = i;
+            }
+        }
+        Console.WriteLine($"Empleado {numDeEmpleado + 1}");
+        Console.WriteLine($"Nombre: {empleado[numDeEmpleado].nombre} {empleado[numDeEmpleado].Apellido}");
+        Console.WriteLine($"Edad: {empleado[numDeEmpleado].Edad()} años");
+        Console.WriteLine($"Antigüedad: {empleado[numDeEmpleado].Antiguedad():0} meses");
+        Console.WriteLine($"Años para jubilación: {empleado[numDeEmpleado].Jubilacion()}");
+        Console.WriteLine($"Cargo: {empleado[numDeEmpleado].Cargo}");
+        Console.WriteLine($"Sueldo total: ${empleado[numDeEmpleado].salario():N2}");
     }
 }
